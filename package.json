@@ -1,0 +1,40 @@
+{
+  "name": "gatsby-source-faunadb",
+  "description": "A Gatsby source plugin to fetch documents from Fauna DB.",
+  "version": "1.0.0",
+  "author": "Paul Cuthbertson <gatsby-source-faunadb.npm@paulcuth.me.uk>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/paulcuth/gatsby-source-faunadb.git"
+  },
+  "bugs": {
+    "url": "https://github.com/paulcuth/gatsby-source-faunadb/issues"
+  },
+  "keywords": [
+    "gatsby",
+    "gatsby-plugin",
+    "fauna",
+    "faunadb"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "faunadb": "^2.13.1",
+    "@babel/runtime": "^7.8.7"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.7",
+    "babel-preset-gatsby-package": "^0.3.1",
+    "cross-env": "^5.2.1"
+  },
+  "peerDependencies": {
+    "gatsby": "^2.0.15"
+  },
+  "scripts": {
+    "build": "babel src --out-dir .",
+    "prepare": "cross-env NODE_ENV=production npm run build"
+  },
+  "engines": {
+    "node": ">=10.13.0"
+  }
+}

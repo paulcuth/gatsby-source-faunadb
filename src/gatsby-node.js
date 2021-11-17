@@ -6,9 +6,12 @@ exports.sourceNodes = async (
   options
 ) => {
   const { createNode } = actions;
-  const { secret, type, index, arguments: args = [] } = options;
+  const { secret, domain, type, index, arguments: args = [] } = options;
 
-  const client = new faunadb.Client({ secret });
+  const client = new faunadb.Client({
+    secret,
+    domain
+  });
 
   try {
     const size =

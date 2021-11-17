@@ -3,17 +3,21 @@
 ## Install the source plugin
 
 Enter the following into your terminal in the root directory of your Gatsby project:
+
 ```
 npm install gatsby-source-faunadb
 ```
 
 or, if you are using Yarn:
+
 ```
 yarn add gatsby-source-faunadb
 ```
 
 ## Configure your project
+
 To connect your Gatsby project to your Fauna database, add the following to the `/gatsby-config.js` file in your project directory:
+
 ```js
 module.exports = {
   //...
@@ -25,6 +29,11 @@ module.exports = {
         // The secret for the key you're using to connect to your Fauna database.
         // You can generate on of these in the "Security" tab of your Fauna Console.
         secret: "___YOUR_FAUNADB_SECRET___",
+        // Where your database instance exists.
+        // You can see the region in the top right of your DB overview from the Fauna Console.
+        // For reference, this property addresses this issue:
+        // https://forums.fauna.com/t/unauthorized-when-using-valid-secret-key/2306
+        domain: "db.us.fauna.com",
         // The name of the index you want to query
         // You can create an index in the "Indexes" tab of your Fauna Console.
         index: `animalsByType`,
@@ -34,19 +43,21 @@ module.exports = {
         // This is the name under which your data will appear in Gatsby GraphQL queries
         // The following will create queries called `allBird` and `bird`.
         type: "bird",
-        // If you need to limit the number of documents returned, you can specify a 
+        // If you need to limit the number of documents returned, you can specify a
         // maximum number to read.
-        size: 100
+        size: 100,
       },
     },
     //...
   ],
 }
 ```
+
 If you'd like to include multiple indexes in your Gatsby project you can add the above section many times, once for each index.
 You can also include the same index multiple times with different arguments and types.
 
 ## Query the data
+
 Your data will appear in your Gatesby project under the `type` name that you gave in `./gatsby-config.js`.
 For example, for the config above you can query:
 
@@ -62,9 +73,10 @@ query MyQuery {
 ```
 
 or, to fetch a single document:
+
 ```graphql
 query MyQuery {
-  bird(name: {eq: "Flamingo"}) {
+  bird(name: { eq: "Flamingo" }) {
     name
     type
     _id
@@ -72,11 +84,13 @@ query MyQuery {
   }
 }
 ```
+
 Note the Fauna document ID and timestamp are also available in the returned type, as `_id` and `_ts` respectively.
 
-
 ## Example
-Given the following data in a Fauna collection: 
+
+Given the following data in a Fauna collection:
+
 ```json
 [
   { "name": "Pallas's cat", "type": "cat" },
@@ -92,6 +106,7 @@ Given the following data in a Fauna collection:
 ![Screenshot of index and results in the Fauna Console](./example-data.png)
 
 We can use the following configuration in `/gatsby-config.js`:
+
 ```js
 module.exports = {
   plugins: [
@@ -108,6 +123,7 @@ module.exports = {
 ```
 
 This will make our data available to query as `allAnimal` in Gatesby GraphQL:
+
 ```graphql
 query MyQuery {
   allAnimal {
@@ -120,6 +136,7 @@ query MyQuery {
 ```
 
 Result:
+
 ```json
 {
   "data": {
@@ -151,13 +168,12 @@ Result:
 }
 ```
 
-
 ## Troubleshooting
 
 A common issue may be that the key secret you're using doesn't have enough access to return the data. If this is the case, you'll see the following message when running `gatsby develop`:
 
 ```
- ERROR 
+ ERROR
 
 [PermissionDenied: permission denied] {
   name: 'PermissionDenied',
@@ -170,7 +186,6 @@ A common issue may be that the key secret you're using doesn't have enough acces
 ```
 
 If you see this, make sure you're using the correct secret and that the associated key has the correct permissions. **Your key will need permission to read all indexes that you're using _and_ all the collections that those indexes use.**
-
 
 ## Get involved
 

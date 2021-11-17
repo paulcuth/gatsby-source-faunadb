@@ -1,7 +1,7 @@
 {
   "name": "gatsby-source-faunadb",
   "description": "A Gatsby source plugin to fetch documents from Fauna DB.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Paul Cuthbertson <gatsby-source-faunadb.npm@paulcuth.me.uk>",
   "repository": {
     "type": "git",
